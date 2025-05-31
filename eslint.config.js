@@ -28,8 +28,16 @@ export default tseslint.config(
       ...reactHooks.configs.recommended.rules,
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
       'no-unused-vars': 'off',
+      'prettier/prettier': 'error',
       'react/jsx-sort-props': ['error', { reservedFirst: true }],
       '@typescript-eslint/no-unused-vars': 'off',
+      '@typescript-eslint/consistent-type-imports': [
+        'error',
+        {
+          prefer: 'type-imports',
+          fixStyle: 'inline-type-imports',
+        },
+      ],
       'unused-imports/no-unused-imports': 'error',
       'unused-imports/no-unused-vars': [
         'error',
@@ -40,7 +48,6 @@ export default tseslint.config(
           argsIgnorePattern: '^_',
         },
       ],
-      'import/no-unresolved': ['error', { ignore: ['\\.svg(\\?{inline})?$'] }],
       'import/order': [
         'error',
         {

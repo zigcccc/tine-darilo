@@ -1,34 +1,27 @@
-import { useState } from 'react';
+import { MediaPlayer, type MediaPlayerInstance, MediaProvider, Poster } from '@vidstack/react';
+import { useRef } from 'react';
 
-import viteLogo from '/vite.svg';
-
-import reactLogo from './assets/react.svg';
-
-import './App.css';
-
-function App() {
-  const [count, setCount] = useState(0);
+export function App() {
+  const ref = useRef<MediaPlayerInstance>(null);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img alt="Vite logo" className="logo" src={viteLogo} />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img alt="React logo" className="logo react" src={reactLogo} />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
-    </>
+    <div className="flex h-screen w-screen items-center justify-center">
+      <MediaPlayer
+        ref={ref}
+        controls={true}
+        fullscreenOrientation="portrait"
+        load="eager"
+        src="/test.mov"
+        title="Sprite Fight"
+      >
+        <MediaProvider>
+          <Poster
+            alt="Girl walks into campfire with gnomes surrounding her friend ready for their next meal!"
+            className="absolute inset-0 block h-full w-full rounded-md bg-black opacity-0 transition-opacity data-[visible]:opacity-100 [&>img]:h-full [&>img]:w-full [&>img]:object-cover"
+            src="https://files.vidstack.io/sprite-fight/poster.webp"
+          />
+        </MediaProvider>
+      </MediaPlayer>
+    </div>
   );
 }
-
-export default App;
