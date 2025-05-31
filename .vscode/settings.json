@@ -1,0 +1,8 @@
+{
+  "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
+  "prettier.configPath": "./prettier.config.js",
+  "prettier.requireConfig": true,
+  "[ignore]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  }
+}
