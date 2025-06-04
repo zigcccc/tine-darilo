@@ -56,10 +56,9 @@ export function VideoPuzzle() {
           <p className="text-sm text-gray-700">
             Pretežko? Nič hudega, se zgodi tudi najboljšim 😜 Da vam delo nekoliko olajšamo, smo vam pripravili 4
             namige:
-            <br />
-            <em className="text-xs text-gray-500">
-              Saj vesta, da sva naredila tako, da bova vedela za vsak porabljen namig, ane?
-            </em>
+            <p className="text-xs leading-tight text-gray-500">
+              <em>Saj vesta, da sva naredila tako, da bova vedela za vsak porabljen namig, ane?</em>
+            </p>
           </p>
           <div className="space-y-2">
             <ExpandableHint label="Namig 1">
