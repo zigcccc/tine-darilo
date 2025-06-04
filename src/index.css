@@ -1,1 +1,6 @@
 @import 'tailwindcss';
+
+:where([data-media-provider] video),
+:where([data-media-provider] iframe) {
+  height: 100%;
+}
