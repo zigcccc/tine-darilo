@@ -1,4 +1,11 @@
-import { MediaPlayer, type MediaPlayerInstance, MediaProvider, Poster, useMediaState } from '@vidstack/react';
+import {
+  type MediaEndedEvent,
+  MediaPlayer,
+  type MediaPlayerInstance,
+  MediaProvider,
+  Poster,
+  useMediaState,
+} from '@vidstack/react';
 import clsx from 'clsx';
 import { useRef } from 'react';
 
@@ -7,6 +14,16 @@ import { ExpandableHint } from '../ExpandableHint';
 export function VideoPuzzle() {
   const ref = useRef<MediaPlayerInstance>(null);
   const ended = useMediaState('ended', ref);
+
+  const handleVideoEnded = (evt: MediaEndedEvent) => {
+    evt.target.exitFullscreen();
+
+    fetch('/api/notify-discord', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type: 'video_ended' }),
+    });
+  };
 
   return (
     <main className="mx-auto mb-48 max-w-md">
@@ -28,6 +45,7 @@ export function VideoPuzzle() {
         controls={true}
         fullscreenOrientation="portrait"
         load="eager"
+        onEnded={handleVideoEnded}
         src="https://stream.mux.com/CkqEONqFLWWJbBxTKpTx1WcUhuSj6KbXkrj1v6DkhRk.m3u8"
         title="Dobrodošel na svet, Tine"
       >
@@ -56,9 +74,9 @@ export function VideoPuzzle() {
           <p className="text-sm text-gray-700">
             Pretežko? Nič hudega, se zgodi tudi najboljšim 😜 Da vam delo nekoliko olajšamo, smo vam pripravili 4
             namige:
-            <p className="text-xs leading-tight text-gray-500">
+            <span className="block text-xs leading-tight text-gray-500">
               <em>Saj vesta, da sva naredila tako, da bova vedela za vsak porabljen namig, ane?</em>
-            </p>
+            </span>
           </p>
           <div className="space-y-2">
             <ExpandableHint label="Namig 1">
