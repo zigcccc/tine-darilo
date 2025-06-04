@@ -9,7 +9,7 @@ export function VideoPuzzle() {
   const ended = useMediaState('ended', ref);
 
   return (
-    <main className="mx-auto max-w-md">
+    <main className="mx-auto mb-48 max-w-md">
       <header className="p-4">
         <h1 className="mb-2 inline-block text-3xl leading-8">
           Dobrodošel na svet,
@@ -73,8 +73,7 @@ export function VideoPuzzle() {
               Zrcalce, zrcalce na steni povej, koga moram prešteti da lahko grem naprej?
             </ExpandableHint>
             <ExpandableHint label="Namig 4">
-              Hodijo v vrsti, nikoli ne zamudijo, vsak s svojim imenom, vsak s svojim številom. Koliko jih zaključi
-              krog?
+              Raztresene pred teboj, brez besed pripovedujejo zgodbo. Vsaka je okno v svoj čas. Koliko jih tvori celoto?
             </ExpandableHint>
           </div>
         </div>
