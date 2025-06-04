@@ -1,11 +1,5 @@
-import {
-  type MediaEndedEvent,
-  MediaPlayer,
-  type MediaPlayerInstance,
-  MediaProvider,
-  Poster,
-  useMediaState,
-} from '@vidstack/react';
+import { useSessionStorage } from '@uidotdev/usehooks';
+import { type MediaEndedEvent, MediaPlayer, type MediaPlayerInstance, MediaProvider, Poster } from '@vidstack/react';
 import clsx from 'clsx';
 import { useRef } from 'react';
 
@@ -13,16 +7,19 @@ import { ExpandableHint } from '../ExpandableHint';
 
 export function VideoPuzzle() {
   const ref = useRef<MediaPlayerInstance>(null);
-  const ended = useMediaState('ended', ref);
+  const [wasWatched, setWasWatched] = useSessionStorage('videoPuzzleWasWatched', false);
 
   const handleVideoEnded = (evt: MediaEndedEvent) => {
-    evt.target.exitFullscreen();
+    if (!wasWatched) {
+      setWasWatched(true);
+      fetch('/api/notify-discord', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'video_ended' }),
+      });
+    }
 
-    fetch('/api/notify-discord', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ type: 'video_ended' }),
-    });
+    evt.target.exitFullscreen();
   };
 
   return (
@@ -59,14 +56,14 @@ export function VideoPuzzle() {
       </MediaPlayer>
 
       <div className="relative">
-        {!ended && (
+        {!wasWatched && (
           <div className="absolute top-1/2 left-1/2 z-10 -translate-1/2">
             <p className="text-center text-sm leading-tight font-medium">
               Ta vsebina bo na voljo ko do konca pogledate video 😉
             </p>
           </div>
         )}
-        <div className={clsx('space-y-3 p-4', { 'blur-md': !ended })}>
+        <div className={clsx('space-y-3 p-4', { 'blur-md': !wasWatched })}>
           <p className="text-sm text-gray-700">
             No, kot ste mogoče že ugotovili, video skriva več kot samo dobrodošlico Tinetu. V njem se skriva tudi koda,
             ki odklepa ključavnico na darilu 🕵️‍♂️
