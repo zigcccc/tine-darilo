@@ -6,7 +6,7 @@ export function App() {
   return (
     <>
       <VideoPuzzle />
-      <Analytics />
+      {import.meta.env.PROD && <Analytics />}
     </>
   );
 }
